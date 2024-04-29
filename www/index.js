@@ -61,7 +61,7 @@ const collectPatterns = () => {
 const getPatterns = () =>
   collectPatterns()
     .filter((p) => p.pattern)
-    .map((p) => wasm.make_pattern(p.name, p.pattern));
+    .map((p) => wasm.make_pattern_input(p.name, p.pattern));
 
 const collectSettings = () => {
   let numWords = Number(document.getElementById("num-words").value.toString());
@@ -168,7 +168,7 @@ const defaults = {
     { name: "main", pattern: "{C}{V}({C}{V})({N})" },
   ],
   settings: {
-    numWords: 5,
+    numWords: 100,
     newLineEach: false,
     filterDuplicates: false,
   },
