@@ -1,0 +1,318 @@
+:root {
+  --bg: #fff;
+  --fg: rgb(25, 25, 25);
+  --fg-muted: rgb(110, 110, 110);
+  --input-outline: rgb(130, 130, 130);
+  --border: rgb(232, 232, 232);
+  --border-hover: rgb(200, 200, 200);
+  --link: rgb(60, 131, 102);
+  --error: rgb(194, 32, 0);
+  --header-bg: rgba(232, 232, 232, 0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --fg: rgb(225, 225, 225);
+    --fg-muted: rgb(200, 200, 200);
+    --input-outline: rgb(85, 85, 85);
+    --border: rgb(25, 25, 25);
+    --border-hover: rgb(50, 50, 50);
+    --error: rgb(213, 105, 100);
+    --header-bg: rgba(25, 25, 25, 0.85);
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+dialog {
+  background-color: inherit;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#app,
+main,
+#patterns,
+#save-modal[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+header,
+#controls,
+#generating,
+#save-load,
+.pattern-row,
+#modal-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+header {
+  background-color: var(--header-bg);
+  padding: 1rem;
+}
+main {
+  padding: 0 1rem;
+}
+
+#generating,
+#save-load,
+.pattern-row {
+  gap: 0.5rem;
+}
+
+.pattern-row {
+  max-width: 100vw;
+}
+
+.pattern {
+  flex: 7;
+  max-width: 100%;
+}
+.name {
+  flex: 1;
+  max-width: 7ch;
+  min-width: 2ch;
+}
+
+#output {
+  white-space: pre-wrap;
+}
+
+input[type="text"] {
+  background: none;
+  border: none;
+  outline: 0.1rem solid var(--input-outline);
+  padding: 0.5rem 0.9rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  color: var(--fg);
+  max-width: calc(100vw - 4rem);
+
+  transition: outline 100ms ease-in-out;
+}
+
+input::placeholder {
+  color: var(--fg-muted);
+}
+
+input[type="text"].error {
+  outline: 0.2rem solid var(--error);
+}
+
+input[type="text"]:focus {
+  outline: 0.2rem solid var(--link);
+}
+
+button,
+.checkbox {
+  background-color: var(--border);
+  color: var(--fg);
+  font: inherit;
+  border: none;
+  padding: 0.5rem 1.1rem 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  max-width: max-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+
+  transition:
+    outline 100ms ease-in-out,
+    background-color 100ms ease-in-out;
+}
+
+button:focus,
+.checkbox:focus-within {
+  outline: 0.1rem solid var(--fg);
+}
+
+button:hover,
+.checkbox:hover {
+  background-color: var(--border-hover);
+}
+
+#save {
+  padding-right: 0.9rem;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  z-index: 0;
+  border: 0.15rem solid var(--fg);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  display: none;
+  position: relative;
+  width: 6px;
+  height: 12px;
+  z-index: 5;
+  transform: scaleX(0.9) rotate(45deg);
+  left: 6px;
+  top: 1px;
+  border-bottom: 0.18rem solid var(--bg);
+  border-right: 0.18rem solid var(--bg);
+}
+
+[type="checkbox"]:checked::before {
+  display: block;
+}
+
+[type="checkbox"]:checked {
+  background-color: var(--fg);
+  border: 0;
+}
+
+[type="checkbox"]:focus {
+  outline: none;
+}
+
+svg {
+  height: 24px;
+}
+
+#error,
+#modal-error {
+  color: var(--error);
+}
+
+#num-words {
+  width: 4ch;
+}
+
+::selection {
+  background-color: var(--fg);
+  color: var(--bg);
+}
+
+#save-modal {
+  background-color: var(--bg);
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+#save-modal,
+#save-modal::backdrop {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+#save-modal::backdrop {
+  transition:
+    opacity 0.1s ease-in-out,
+    background-color 0.1s ease-in-out,
+    backdrop-filter 0.1s ease-in-out;
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0);
+}
+
+#save-modal.open,
+#save-modal.open::backdrop {
+  opacity: 1;
+}
+
+#save-modal.open::backdrop {
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
+#save-modal label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 600px) {
+  #generating {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .pattern-row {
+    flex-wrap: wrap;
+  }
+
+  .pattern-row .name {
+    max-width: 4.5ch;
+  }
+  .pattern-row .pattern {
+    max-width: 65vw;
+  }
+
+  #save-modal label {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1000px) {
+  #controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+p {
+  max-width: 70ch;
+  line-height: 1.5rem;
+  margin: 0;
+}
+
+code {
+  background-color: var(--border);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 90%;
+  text-wrap: nowrap;
+}

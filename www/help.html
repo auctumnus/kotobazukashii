@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Kozuka</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="favicon.svg" />
+    <link rel="mask-icon" href="favicon.svg" color="#3c8366" />
+    <style>
+      .live-example,
+      .live-example-controls {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+      .live-example-input,
+      .output-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .live-example input {
+        max-width: 10ch;
+      }
+      .output {
+        background-color: var(--border);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        min-height: 24px;
+        min-width: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    </style>
+    <noscript>
+      <style>
+        .live-example,
+        .live-example-desc {
+          display: none;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1><a href="/">Kozuka</a></h1>
+        <nav>
+          <a href="/help.html">How to use</a> ·
+          <a href="https://github.com/auctumnus/kotobazukashii">Source code</a>
+        </nav>
+      </header>
+      <main>
+        <h1>Kozuka help</h1>
+        <p>
+          Kozuka (short for kotobazukashii (<a
+            href="https://jisho.org/word/%E8%A8%80%E8%91%89"
+            >言葉</a
+          >
+          <i>kotoba</i> +
+          <a
+            href="https://jisho.org/word/%E6%81%A5%E3%81%9A%E3%81%8B%E3%81%97%E3%81%84"
+            >恥ずかしい</a
+          >
+          <i>hazukashii</i>, literally "embarrassing words")) is a
+          word-generation program for conlanging. The interface and pattern
+          language are based off of
+          <a
+            href="https://web.archive.org/web/20240323210408/http://akana.conlang.org/tools/awkwords/"
+            >Awkwords</a
+          >.
+        </p>
+        <noscript>
+          <p>
+            This page has some interactive elements that require Javascript to
+            work. If you'd like live examples (they run in your browser!),
+            please enable Javascript. (Also, you can run Kozuka without JS using
+            <a href="https://github.com/auctumnus/kotobazukashii"
+              >the source code</a
+            >!)
+          </p>
+        </noscript>
+        <h2>Patterns</h2>
+        <p>Patterns tell Kozuka how to generate your words!</p>
+        <h3>Basics</h3>
+        <p>
+          Any text can be used within patterns, even capital letters,
+          diacritics, or IPA characters.
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="abc" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <h4>Choices</h4>
+        <p>
+          Patterns between slashes (like <code>a/b/c</code>) choose between one
+          of the given choices. Each has an equal chance of occurring, unless
+          you suffix a choice with a weight (like <code>a*2/b/c*3</code>). This
+          has the same effect as repeating the choice that many times, thus
+          increasing the "weight".
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="a/b/c" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <h4>Optional sequences</h4>
+        <p>
+          Patterns within parentheses (like <code>(a)</code>) will either be
+          generated, or not! It's like having a choice between the pattern and
+          an empty one. Each choice is equally likely.
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="a(b)" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <h4>Subpatterns</h4>
+        <p>
+          A subpattern (like <code>[a]</code>) is like an optional sequence, but
+          it's always generated. It's useful for putting choices in the middle
+          of patterns.
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="[p/t/k]a" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <h3>Filters</h3>
+        <p>
+          You can specify things that should never be generated with filters.
+          They look like <code>^abc</code>, and go at the end of any pattern.
+          They can only contain plain text, not patterns. They also need to be
+          placed after weights.
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="[p/t/k]a^pa" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <p class="live-example-desc">
+          Notice that the above example never generates "pa"!
+        </p>
+        <h4>References</h4>
+        <p>
+          A reference (like <code>{C}</code> references another defined pattern
+          by its name.
+        </p>
+        <div class="live-example">
+          <div class="live-example-input">
+            <b>Example</b>
+            <div class="live-example-controls">
+              <input type="text" value="{C}{V}" />
+              <button class="generate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"
+                  />
+                </svg>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+          <div class="output-container">
+            <b>Output</b>
+            <div class="output"></div>
+          </div>
+        </div>
+        <p class="live-example-desc">
+          In the above example, "C" is set to "p/t/k/s/m/n" and "V" is set to
+          "a/i/u".
+        </p>
+        <h2>Settings</h2>
+        <p>
+          In the controls section, you can choose the number of words to be
+          generated, whether to put new lines between each word, and whether to
+          filter out duplicates. (If you filter duplicates, you might get fewer
+          words than you asked for!) Finally, the generate button will generate
+          your words based on the main pattern and any other patterns you've
+          added.
+        </p>
+        <h2>Saving &amp; Loading</h2>
+        <p>
+          The save button will open a dialog to save your patterns and settings
+          to a file. This produces a <code>.json</code> file with the data,
+          which you can load back into Kozuka with the load button. Make sure to
+          save often!
+        </p>
+        <p>
+          In addition, your data is saved into the browser's local storage, but
+          you shouldn't rely on this, since it can get wiped pretty easily and
+          doesn't share between devices.
+        </p>
+      </main>
+    </div>
+    <script type="module" src="help.js"></script>
+  </body>
+</html>
